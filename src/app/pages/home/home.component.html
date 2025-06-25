@@ -1,1 +1,38 @@
-<p>home works!</p>
+<!-- Inputs for message -->
+<input [(ngModel)]="inputUser" placeholder="User">
+<input [(ngModel)]="inputMatricule" placeholder="Matricule">
+<button (click)="sendMessage()">Envoyer</button>
+<p>{{ message }}</p>
+
+<!-- Table headers -->
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Matricule</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+
+  <!-- Form row -->
+  <tbody>
+    <tr>
+      <td><input [(ngModel)]="inputUser" placeholder="User" /></td>
+      <td><input [(ngModel)]="inputMatricule" placeholder="Matricule" /></td>
+      <td><input [(ngModel)]="inputEmail" placeholder="Email" /></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="text-align: center;">
+        <button (click)="add(inputUser, inputMatricule, inputEmail)">Ajouter</button>
+        <button (click)="modify(selectedIndex, inputUser, inputMatricule, inputEmail)">Modifier</button>
+        <button (click)="remove(selectedIndex)">Supprimer</button>
+      </td>
+    </tr>
+    <tr *ngFor="let u of userList; let i = index" (click)="selectUser(i)">
+  <td>{{ u.user }}</td>
+  <td>{{ u.matricule }}</td>
+  <td>{{ u.email }}</td>
+</tr>
+
+  </tbody>
+</table>

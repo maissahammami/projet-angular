@@ -1,1 +1,12 @@
-<p>historique works!</p>
+<table>
+  <thead>
+    <tr><th>User</th><th>Date envoie</th><th>Message</th></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let h of historyList">
+      <td>{{ h.user }}</td>
+      <td>{{ h.date }}</td>
+      <td>{{ h.message }}</td>
+    </tr>
+  </tbody>
+</table>
