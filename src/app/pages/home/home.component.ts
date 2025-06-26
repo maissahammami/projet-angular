@@ -4,20 +4,32 @@ import { UserService, UserData } from '../../services/user.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  userList: UserData[] = [];
+  // For message (Envoyer)
+  messageUser = '';
+  messageMatricule = '';
+  message = '';
+
+  // For the user form (CRUD)
   inputUser = '';
   inputMatricule = '';
   inputEmail = '';
-  message = '';
-
-  selectedIndex: number = -1; // Track selected user for update/delete
+  userList: UserData[] = [];
+  selectedIndex: number = -1;
 
   constructor(public userService: UserService) {
     this.userList = this.userService.getUsers();
   }
 
+  // Message send
+  sendMessage() {
+    this.message = `Bonjour ${this.messageUser} voici votre ${this.messageMatricule}`;
+    this.userService.sendMessage({ user: this.messageUser, matricule: this.messageMatricule, email: '' });
+  }
+
+  // CRUD functions
   add(user: string, matricule: string, email: string) {
     if (user && matricule && email) {
       this.userService.addUser({ user, matricule, email });
@@ -26,7 +38,7 @@ export class HomeComponent {
   }
 
   modify(index: number, user: string, matricule: string, email: string) {
-    if (index !== -1 && user && matricule && email) {
+    if (index !== -1) {
       this.userService.updateUser(index, { user, matricule, email });
       this.clearInputs();
       this.selectedIndex = -1;
@@ -47,11 +59,6 @@ export class HomeComponent {
     this.inputUser = selected.user;
     this.inputMatricule = selected.matricule;
     this.inputEmail = selected.email;
-  }
-
-  sendMessage() {
-    this.message = `Bonjour ${this.inputUser} voici votre ${this.inputMatricule}`;
-    this.userService.sendMessage({ user: this.inputUser, matricule: this.inputMatricule, email: this.inputEmail });
   }
 
   clearInputs() {
